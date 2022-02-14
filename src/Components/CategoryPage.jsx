@@ -55,7 +55,6 @@ export default function CategoryPage({ cartItems, addCart, category }) {
       <div className="d-flex flex-wrap justify-content-around align-items-center">
         {products.map((product, index) => {
           return (
-            // <Link to={`/item/${product.id}`}>
             <Link
               key={index}
               className="item_width d-flex flex-column item p-1"

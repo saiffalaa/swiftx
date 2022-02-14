@@ -4,6 +4,7 @@ import "../Styles/navbar.css";
 import { BiDollar } from "react-icons/bi";
 import { AiOutlineShoppingCart, AiFillCaretDown } from "react-icons/ai";
 import CartMenu from "./CartMenu";
+import { gql, useQuery } from "@apollo/client";
 
 export default function Navbar({
   setBlur,
@@ -11,10 +12,29 @@ export default function Navbar({
   addCart,
   subtCart,
   handleCate,
+  handleCurr,
 }) {
   const [hightlight, setHighlight] = useState("All");
   const [cartOpen, setCartOpen] = useState(false);
   const [currOpen, setCurrOpen] = useState(false);
+  const [currencyList, setCurrencyList] = useState([]);
+
+  const query = gql`
+    query {
+      currencies {
+        label
+        symbol
+      }
+    }
+  `;
+  const { error, loading, data } = useQuery(query);
+  useEffect(() => {
+    if (data) {
+      const { currencies } = data;
+      setCurrencyList(currencies);
+    }
+  }, [data]);
+
   const handleFocus = (e) => {
     console.log(e.target.textContent);
     setHighlight(e.target.textContent);
@@ -70,9 +90,23 @@ export default function Navbar({
           <AiFillCaretDown className="down_size" />
         </div>
         {currOpen ? (
-          <div className="position-curr">
-            <p>asd</p>
-          </div>
+          <ul className="position-curr m-0 p-0 mt-1">
+            {currencyList.map((curr, index) => {
+              return (
+                <li
+                  onClick={(e) => {
+                    handleCurr(e.target.textContent);
+                    setCartOpen(false);
+                    setCurrOpen(false);
+                  }}
+                  key={index}
+                  className="ps-1 curr-item "
+                >
+                  {curr.symbol} {curr.label}
+                </li>
+              );
+            })}
+          </ul>
         ) : (
           <></>
         )}

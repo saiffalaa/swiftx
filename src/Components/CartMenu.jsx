@@ -15,7 +15,7 @@ export default function CartMenu({ closeMenu, cartItems, addCart, subtCart }) {
     calcTotal();
   }, [cartItems]);
   return (
-    <div className="position background">
+    <div className="position background mt-1">
       {cartItems.length > 0 ? (
         <ul className="p-0 ps-1">
           {cartItems.map((item, index) => (

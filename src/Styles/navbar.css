@@ -50,4 +50,13 @@ li {
   top: 3.5rem;
   width: 115px;
   border: 1px solid black;
+  z-index: 33;
+  background-color: white;
+}
+.curr-item {
+  font-size: 18px;
+}
+.curr-item:hover {
+  background-color: black;
+  color: white;
 }
