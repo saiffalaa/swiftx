@@ -26,7 +26,7 @@ export default function CartMenu({ closeMenu, cartItems, addCart, subtCart }) {
               <div className="d-flex flex-column justify-content-between">
                 <p className="m-0 font-menu">{item.brand}</p>
                 <p className="m-0 font-menu">{item.name}</p>
-                <p className="m-0 font-menu">
+                <p className="m-0 font-menu menu-price">
                   {item.prices[0].currency.symbol} {item.prices[0].amount}
                 </p>
                 {item.attributes?.map((attr, index) => (

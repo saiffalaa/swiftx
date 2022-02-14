@@ -39,9 +39,9 @@ export default function CategoryPage({ cartItems, addCart, category }) {
       console.log(data, categories, category);
       if (category === "All") setProducts(categories[0].products);
       if (category === "Clothes") setProducts(categories[1].products);
-      if (category === "Texh") setProducts(categories[2].products);
+      if (category === "Tech") setProducts(categories[2].products);
     }
-  }, [data]);
+  }, [data, category]);
   const handleCart = (e, prod) => {
     e.preventDefault();
     console.log(prod);
@@ -50,7 +50,7 @@ export default function CategoryPage({ cartItems, addCart, category }) {
   return (
     <div className="mt-3">
       <header>
-        <h2 className="header_font">Category name</h2>
+        <h2 className="header_font">{category}</h2>
       </header>
       <div className="d-flex flex-wrap justify-content-around align-items-center">
         {products.map((product, index) => {

@@ -5,13 +5,20 @@ import { BiDollar } from "react-icons/bi";
 import { AiOutlineShoppingCart, AiFillCaretDown } from "react-icons/ai";
 import CartMenu from "./CartMenu";
 
-export default function Navbar({ setBlur, cartItems, addCart, subtCart }) {
+export default function Navbar({
+  setBlur,
+  cartItems,
+  addCart,
+  subtCart,
+  handleCate,
+}) {
   const [hightlight, setHighlight] = useState("All");
   const [cartOpen, setCartOpen] = useState(false);
   const [currOpen, setCurrOpen] = useState(false);
   const handleFocus = (e) => {
     console.log(e.target.textContent);
     setHighlight(e.target.textContent);
+    handleCate(e.target.textContent);
   };
 
   return (

@@ -29,6 +29,10 @@ function App() {
   // }, [data]);
   const [category, setCategory] = useState("All");
   const [cartProducts, setCartProducts] = useState([]);
+  const handleCate = (cate) => {
+    console.log(cate);
+    setCategory(cate);
+  };
   const addCart = (product) => {
     const prod = JSON.parse(JSON.stringify(product));
     if (prod.quantity) {
@@ -71,6 +75,7 @@ function App() {
     <Router>
       <div className={`ml-start ml-end `}>
         <Navbar
+          handleCate={(str) => handleCate(str)}
           subtCart={subtCart}
           addCart={addCart}
           cartItems={cartProducts}
