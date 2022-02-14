@@ -1,0 +1,48 @@
+.item_page {
+  box-sizing: border-box;
+}
+.side_image {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+.brand_size {
+  font-size: 30px;
+  font-weight: 600;
+}
+.name_size {
+  font-size: 30px;
+  font-weight: 400;
+}
+.attr {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 65px;
+  height: 45px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+.attr:hover {
+  background-color: black;
+  color: white;
+  transition: all 0.2s ease-in-out;
+}
+.price-title {
+  font-size: 18px;
+  font-weight: 700;
+}
+.price {
+  font-size: 24px;
+  font-weight: 700;
+}
+.cart-btn {
+  width: 290px;
+  height: 50px;
+  color: white;
+  background-color: #5ece7b;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+}

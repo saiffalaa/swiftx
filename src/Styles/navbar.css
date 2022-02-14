@@ -1,0 +1,53 @@
+li {
+  text-decoration: none;
+  list-style: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+.categorySpace {
+  width: 18%;
+}
+
+.lineAll {
+  width: 30px;
+  height: 2px;
+  border-bottom: 2px solid rgb(114, 212, 139);
+  position: absolute;
+}
+.lineClothes {
+  width: 60px;
+  height: 2px;
+  border-bottom: 2px solid rgb(114, 212, 139);
+  position: absolute;
+}
+.green {
+  color: rgb(114, 212, 139);
+}
+.lineTech {
+  width: 40px;
+  height: 2px;
+  border-bottom: 2px solid rgb(114, 212, 139);
+  position: absolute;
+}
+.line_space {
+  margin-top: 20px;
+}
+.logo_dim {
+  width: 35px;
+}
+.icons_size {
+  font-size: 1.2rem;
+}
+.down_size {
+  font-size: 0.7rem;
+}
+.margin {
+  margin-right: 25px;
+}
+.position-curr {
+  position: absolute;
+  right: 6rem;
+  top: 3.5rem;
+  width: 115px;
+  border: 1px solid black;
+}

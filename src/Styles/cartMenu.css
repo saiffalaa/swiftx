@@ -1,0 +1,67 @@
+.position {
+  position: absolute;
+  right: 4rem;
+  top: 3.5rem;
+  width: 325px;
+  height: 540px;
+  /* border: 1px solid black; */
+  box-shadow: -2px 2px 2px lightblue;
+  z-index: 1000;
+  background-color: white;
+  overflow: scroll;
+}
+.cart-image {
+  padding: 0;
+  margin: 0;
+  width: 100px;
+  height: 150px;
+}
+.cartbtn {
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  border: 1px solid black;
+  cursor: pointer;
+}
+.item-height {
+  height: 150px;
+}
+.height {
+  height: 100%;
+}
+
+.font-menu {
+  font-size: 16px;
+}
+.attr-menu {
+  height: 24px;
+  width: fit-content;
+  border: 1px solid black;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.menu-btn {
+  font-size: 14px;
+  font-weight: 600;
+  width: 140px;
+  height: 45px;
+  border: none;
+  cursor: pointer;
+}
+.bag {
+  background-color: transparent;
+  border: 1px solid black;
+}
+.checkout {
+  background-color: #5ece7b;
+  color: white;
+}
+.foot {
+  position: sticky;
+  height: 100px;
+  width: 100%;
+  bottom: 0rem;
+  background-color: white;
+}

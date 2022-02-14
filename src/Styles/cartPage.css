@@ -1,0 +1,14 @@
+.border-bot {
+  border-bottom: 1px solid #e5e5e5;
+}
+.image_cart_size {
+  width: 180px;
+  /* height: 190px; */
+}
+.qButton {
+  background-color: transparent;
+  border: 1px solid black;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+}
