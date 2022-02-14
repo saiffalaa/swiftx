@@ -53,7 +53,7 @@ export default function CartMenu({ closeMenu, cartItems, addCart, subtCart }) {
           ))}
         </ul>
       ) : (
-        <p>No Cart Items yet</p>
+        <p className="center">No Cart Items yet</p>
       )}
       <footer className="foot">
         <div className="d-flex justify-content-between ps-1 pe-1">

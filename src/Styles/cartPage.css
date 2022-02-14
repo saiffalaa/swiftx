@@ -1,5 +1,5 @@
-.border-bot {
-  border-bottom: 1px solid #e5e5e5;
+.border-top {
+  border-top: 1px solid #e5e5e5;
 }
 .image_cart_size {
   width: 180px;
@@ -11,4 +11,33 @@
   width: 45px;
   height: 45px;
   cursor: pointer;
+}
+.cart-type {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 65px;
+  border: 1px solid black;
+  height: 45px;
+}
+.cart-type:hover {
+  background-color: black;
+  color: white;
+  transition: all 0.2s ease-in-out;
+}
+.cartPageText {
+  font-size: 30px;
+}
+.cartPageBrand {
+  font-weight: 600;
+}
+.cartPageName {
+  font-weight: 500;
+}
+.cart_price {
+  font-size: 24px;
+  font-weight: 700;
+}
+.empty {
+  font-size: 40px;
 }

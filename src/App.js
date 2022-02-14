@@ -90,9 +90,18 @@ function App() {
             />
             <Route
               path="/cart"
-              element={<CartPage cartItems={cartProducts} />}
+              element={
+                <CartPage
+                  subtCart={subtCart}
+                  addCart={addCart}
+                  cartItems={cartProducts}
+                />
+              }
             />
-            <Route path="/item/:id" element={<ItemPage />} />
+            <Route
+              path="/item/:id"
+              element={<ItemPage cartItems={cartProducts} addCart={addCart} />}
+            />
             {/* <CategoryPage category={category} /> */}
           </Routes>
         </div>

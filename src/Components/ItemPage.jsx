@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
 import "../Styles/itemPage.css";
-export default function ItemPage() {
+export default function ItemPage({ addCart, cartItems }) {
   const { id } = useParams();
   const query = gql`
     query {
@@ -30,6 +30,7 @@ export default function ItemPage() {
   `;
   const { error, loading, data } = useQuery(query);
   const [prod, setProd] = useState();
+  const [isAdded, setIsAdded] = useState(false);
   useEffect(() => {
     if (data) {
       const { product } = data;
@@ -37,6 +38,13 @@ export default function ItemPage() {
       setProd(product);
     }
   }, [data]);
+  useEffect(() => {
+    let found = false;
+    cartItems?.map((item) => {
+      if (item.id === prod.id) found = true;
+    });
+    setIsAdded(found);
+  }, [cartItems]);
   return (
     <div className="d-flex item_page">
       <div className="d-flex w-50">
@@ -70,7 +78,13 @@ export default function ItemPage() {
           </p>
         </div>
         <div>
-          <button className="cart-btn">ADD TO CART</button>
+          {isAdded ? (
+            <button className="cart-btn">ADDED TO CART</button>
+          ) : (
+            <button onClick={() => addCart(prod)} className="cart-btn">
+              ADD TO CART
+            </button>
+          )}
         </div>
         <div
           className="description mt-1 mb-1"
