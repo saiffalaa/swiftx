@@ -29,14 +29,13 @@ function App() {
   // }, [data]);
   const [category, setCategory] = useState("All");
   const [cartProducts, setCartProducts] = useState([]);
-  const [currency, setCurrency] = useState([]);
+  const [currency, setCurrency] = useState(0);
   const handleCate = (cate) => {
     console.log(cate);
     setCategory(cate);
   };
   const currencyState = (curr) => {
-    const sym = curr.split(" ")[0];
-    setCurrency(sym);
+    setCurrency(curr);
   };
   const addCart = (product) => {
     const prod = JSON.parse(JSON.stringify(product));
@@ -80,6 +79,7 @@ function App() {
     <Router>
       <div className={`ml-start ml-end `}>
         <Navbar
+          sym={currency}
           handleCurr={(current) => currencyState(current)}
           handleCate={(str) => handleCate(str)}
           subtCart={subtCart}
@@ -93,7 +93,7 @@ function App() {
               path="/"
               element={
                 <CategoryPage
-                  sym={sym}
+                  sym={currency}
                   cartItems={cartProducts}
                   addCart={addCart}
                   category={category}
@@ -104,7 +104,7 @@ function App() {
               path="/cart"
               element={
                 <CartPage
-                  sym={sym}
+                  sym={currency}
                   subtCart={subtCart}
                   addCart={addCart}
                   cartItems={cartProducts}
@@ -115,7 +115,7 @@ function App() {
               path="/item/:id"
               element={
                 <ItemPage
-                  sym={sym}
+                  sym={currency}
                   cartItems={cartProducts}
                   addCart={addCart}
                 />

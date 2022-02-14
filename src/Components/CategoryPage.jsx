@@ -3,7 +3,7 @@ import "../Styles/category.css";
 import { gql, useQuery } from "@apollo/client";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { Link } from "react-router-dom";
-export default function CategoryPage({ cartItems, addCart, category }) {
+export default function CategoryPage({ cartItems, addCart, category, sym }) {
   // category = !category ? "All" : category;
   const query = gql`
     query {
@@ -31,6 +31,7 @@ export default function CategoryPage({ cartItems, addCart, category }) {
     }
   `;
   const [products, setProducts] = useState([]);
+  const [currIndex, setCurrIndex] = useState(0);
   const { error, loading, data } = useQuery(query);
 
   useEffect(() => {
@@ -87,7 +88,8 @@ export default function CategoryPage({ cartItems, addCart, category }) {
               <div className="mt-1">
                 <p className="m-0 name">{product.name}</p>
                 <p className="m-0 mt-1 price">
-                  {product.prices[0].currency.symbol} {product.prices[0].amount}
+                  {product.prices[sym].currency.symbol}{" "}
+                  {product.prices[sym].amount}
                 </p>
               </div>
             </Link>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
 import "../Styles/itemPage.css";
-export default function ItemPage({ addCart, cartItems }) {
+export default function ItemPage({ addCart, cartItems, sym }) {
   const { id } = useParams();
   const query = gql`
     query {
@@ -31,13 +31,14 @@ export default function ItemPage({ addCart, cartItems }) {
   const { error, loading, data } = useQuery(query);
   const [prod, setProd] = useState();
   const [isAdded, setIsAdded] = useState(false);
+  const [currIndex, setCurrIndex] = useState(0);
   useEffect(() => {
     if (data) {
       const { product } = data;
-      console.log(product);
       setProd(product);
     }
   }, [data]);
+
   useEffect(() => {
     let found = false;
     cartItems?.map((item) => {
@@ -64,17 +65,17 @@ export default function ItemPage({ addCart, cartItems }) {
           <h3 className="brand_size">{prod?.brand}</h3>
           <p className="name_size">{prod?.name}</p>
         </div>
-        {prod?.attributes.map((attr, index) => (
+        {prod?.attributes?.map((attr, index) => (
           <div key={index}>
-            <h4>{attr.name.toUpperCase()}:</h4>
+            <h4>{attr?.name.toUpperCase()}:</h4>
             <p className="attr">{attr?.type.toUpperCase()}</p>
           </div>
         ))}
         <div>
           <h4 className="price-title">PRICE:</h4>
           <p className="price">
-            {prod?.prices[0].currency.symbol}
-            {prod?.prices[0].amount}
+            {prod?.prices[sym].currency.symbol}
+            {prod?.prices[sym].amount}
           </p>
         </div>
         <div>

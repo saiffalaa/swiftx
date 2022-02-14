@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../Styles/cartPage.css";
 import { gql, useQuery } from "@apollo/client";
 
-function CartPage({ cartItems, subtCart, addCart }) {
+function CartPage({ cartItems, subtCart, addCart, sym }) {
   const query = gql`
     query {
       categories {
@@ -43,8 +43,8 @@ function CartPage({ cartItems, subtCart, addCart }) {
               <p className="cartPageText cartPageBrand">{item?.brand}</p>
               <p className="cartPageText cartPageName">{item.name}</p>
               <p className="cart_price">
-                {item.prices[0].currency.symbol}
-                {item.prices[0].amount}
+                {item.prices[sym].currency.symbol}
+                {item.prices[sym].amount}
               </p>
 
               {item.attributes?.map((attr) => (

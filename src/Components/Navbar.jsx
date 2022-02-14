@@ -12,6 +12,7 @@ export default function Navbar({
   addCart,
   subtCart,
   handleCate,
+  sym,
   handleCurr,
 }) {
   const [hightlight, setHighlight] = useState("All");
@@ -86,7 +87,7 @@ export default function Navbar({
           }}
           className="d-flex align-items-center pointer margin"
         >
-          <BiDollar className="icons_size" />
+          <label className="icons_size">{currencyList[sym]?.symbol}</label>
           <AiFillCaretDown className="down_size" />
         </div>
         {currOpen ? (
@@ -94,8 +95,9 @@ export default function Navbar({
             {currencyList.map((curr, index) => {
               return (
                 <li
+                  key={index}
                   onClick={(e) => {
-                    handleCurr(e.target.textContent);
+                    handleCurr(index);
                     setCartOpen(false);
                     setCurrOpen(false);
                   }}
@@ -120,6 +122,7 @@ export default function Navbar({
         />
         {cartOpen ? (
           <CartMenu
+            sym={sym}
             subtCart={subtCart}
             addCart={addCart}
             cartItems={cartItems}
