@@ -2,6 +2,18 @@ import React, { useState, useEffect } from "react";
 import "../Styles/cartMenu.css";
 import { Link } from "react-router-dom";
 export default function CartMenu({ closeMenu, cartItems, addCart, subtCart }) {
+  const [total, setTotal] = useState(0);
+  const calcTotal = () => {
+    let sum = 0;
+    cartItems.map((item) => {
+      sum += item.prices[0].amount * item.quantity;
+    });
+    sum = Math.round(sum * 100) / 100;
+    setTotal(sum);
+  };
+  useEffect(() => {
+    calcTotal();
+  }, [cartItems]);
   return (
     <div className="position background">
       {cartItems.length > 0 ? (
@@ -44,9 +56,9 @@ export default function CartMenu({ closeMenu, cartItems, addCart, subtCart }) {
         <p>No Cart Items yet</p>
       )}
       <footer className="foot">
-        <div className="d-flex justify-content-between ps-1  pe-1">
-          <p>Total</p>
-          <p>$140</p>
+        <div className="d-flex justify-content-between ps-1 pe-1">
+          <p className="total">Total</p>
+          <p className="total total-weight">${total}</p>
         </div>
         <div className="d-flex justify-content-around w-100">
           <Link to="/cart">

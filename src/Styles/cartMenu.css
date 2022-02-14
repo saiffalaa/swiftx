@@ -65,3 +65,10 @@
   bottom: 0rem;
   background-color: white;
 }
+.total {
+  font-size: 16px;
+  font-weight: 600;
+}
+.total-weight {
+  font-weight: 700;
+}
