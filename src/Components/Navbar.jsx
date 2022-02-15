@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import LOGO from "../Assets/LOGO.png";
 import "../Styles/navbar.css";
-import { BiDollar } from "react-icons/bi";
-import { AiOutlineShoppingCart, AiFillCaretDown } from "react-icons/ai";
+import { RiArrowDropUpLine, RiArrowDropDownLine } from "react-icons/ri";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 import CartMenu from "./CartMenu";
 import { gql, useQuery } from "@apollo/client";
 
@@ -90,10 +90,14 @@ export default function Navbar({
           <label className="pointer icons_size">
             {currencyList[sym]?.symbol}
           </label>
-          <AiFillCaretDown className="down_size" />
+          {currOpen ? (
+            <RiArrowDropUpLine className="down_size" />
+          ) : (
+            <RiArrowDropDownLine className="down_size" />
+          )}
         </div>
         {currOpen ? (
-          <ul className="position-curr m-0 p-0 mt-1">
+          <ul className="position-curr m-0 p-0 mt-1 pb-1">
             {currencyList.map((curr, index) => {
               return (
                 <li
@@ -104,7 +108,7 @@ export default function Navbar({
                     setCurrOpen(false);
                   }}
                   key={index}
-                  className="ps-1 curr-item "
+                  className="curr-item mt-1"
                 >
                   {curr.symbol} {curr.label}
                 </li>
@@ -114,16 +118,15 @@ export default function Navbar({
         ) : (
           <></>
         )}
-        <div>
-          <AiOutlineShoppingCart
-            onClick={() => {
-              setBlur(!cartOpen);
-              setCartOpen(!cartOpen);
-              setCurrOpen(false);
-            }}
-            className="icons_size pointer"
-          />
-          <label className="cart-label">{cartItems.length}</label>
+        <div
+          onClick={() => {
+            setBlur(!cartOpen);
+            setCartOpen(!cartOpen);
+            setCurrOpen(false);
+          }}
+        >
+          <AiOutlineShoppingCart className="icons_size pointer" />
+          <label className="pointer cart-label">{cartItems.length}</label>
         </div>
         {cartOpen ? (
           <CartMenu

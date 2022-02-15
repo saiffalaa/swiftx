@@ -39,7 +39,11 @@ li {
   font-size: 1.2rem;
 }
 .down_size {
-  font-size: 0.7rem;
+  font-size: 1.3rem;
+}
+.up_size {
+  font-size: 1rem;
+  font-weight: 900;
 }
 .margin {
   margin-right: 25px;
@@ -49,7 +53,9 @@ li {
   right: 6rem;
   top: 3.5rem;
   width: 115px;
-  border: 1px solid black;
+  border: none;
+  box-shadow: 1px 1px 5px lightblue, -1px 0 5px lightblue;
+  text-align: center;
   z-index: 33;
   background-color: white;
 }
