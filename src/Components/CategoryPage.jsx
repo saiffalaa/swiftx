@@ -86,21 +86,23 @@ export default function CategoryPage({
                 ) : (
                   <div id="text__overlay">OUT OF STOCK</div>
                 )}
-                {!product.isAdded ? (
-                  <AiOutlineShoppingCart
-                    onClick={(e) => {
-                      handleCart(e, product);
-                    }}
-                    className="cart__overlay add"
-                  />
-                ) : (
-                  <AiOutlineShoppingCart
-                    onClick={(e) => {
-                      handleRemove(e, product);
-                    }}
-                    className="cart__overlay remove"
-                  />
-                )}
+                <div className="cart__overlay_container">
+                  {!product.isAdded ? (
+                    <AiOutlineShoppingCart
+                      onClick={(e) => {
+                        handleCart(e, product);
+                      }}
+                      className="cart__overlay add"
+                    />
+                  ) : (
+                    <AiOutlineShoppingCart
+                      onClick={(e) => {
+                        handleRemove(e, product);
+                      }}
+                      className="cart__overlay remove"
+                    />
+                  )}
+                </div>
               </figure>
               <div className="mt-1">
                 <p className="m-0 name">{product.name}</p>
