@@ -26,6 +26,7 @@ function App() {
         if (item.id === prod.id) {
           item.quantity++;
         }
+        return 0;
       });
       setCartProducts([...newCartProducts]);
     } else {
@@ -48,6 +49,7 @@ function App() {
         if (it.id === item.id) {
           it.quantity--;
         }
+        return 0;
       });
       setCartProducts([...newCartProducts]);
     }
@@ -62,6 +64,7 @@ function App() {
         const i = item.attr.indexOf(index);
         item.attr?.splice(i, 1);
       }
+      return 0;
     });
     setSelectedAttr([...prod]);
   };
@@ -78,6 +81,7 @@ function App() {
           exist = true;
           it.attr.push(index);
         }
+        return 0;
       });
       if (exist) {
         setSelectedAttr([...prod2]);

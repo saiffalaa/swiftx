@@ -51,6 +51,7 @@ export default function ItemPage({
     let found = false;
     cartItems?.map((item) => {
       if (item.id === prod?.id) found = true;
+      return 0;
     });
     setIsAdded(found);
   }, [cartItems, prod]);
@@ -59,6 +60,7 @@ export default function ItemPage({
       if (attr?.id === prod?.id) {
         setCurrAttr(attr);
       }
+      return 0;
     });
   }, [attrs, prod]);
   return (

@@ -5,6 +5,7 @@ import { RiArrowDropUpLine, RiArrowDropDownLine } from "react-icons/ri";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import CartMenu from "./CartMenu";
 import { gql, useQuery } from "@apollo/client";
+import { Link } from "react-router-dom";
 
 export default function Navbar({
   setBlur,
@@ -75,9 +76,11 @@ export default function Navbar({
           ></div>
         </li>
       </ul>
-      <figure className="p-0 m-0 logo_dim">
-        <img className="w-100" src={LOGO} alt="" />
-      </figure>
+      <Link to="/">
+        <figure className="p-0 m-0 logo_dim">
+          <img className="w-100" src={LOGO} alt="" />
+        </figure>
+      </Link>
       <div className="d-flex">
         <div
           onClick={() => {

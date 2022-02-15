@@ -32,6 +32,7 @@ export default function CartMenu({
     let sum = 0;
     cartItems.map((item) => {
       sum += item.prices[sym].amount * item.quantity;
+      return 0;
     });
     sum = Math.round(sum * 100) / 100;
     setTotal(sum);

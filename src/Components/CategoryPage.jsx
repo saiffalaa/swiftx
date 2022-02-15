@@ -37,27 +37,30 @@ export default function CategoryPage({
   `;
   const [products, setProducts] = useState([]);
   const { data } = useQuery(query);
-  const { categories } = data;
-  const adding = (i) => {
+
+  const adding = (i, categories) => {
     let prod = JSON.parse(JSON.stringify(categories[i].products));
     prod.map((p) => (p.isAdded = false));
     cartItems.map((item) => {
       prod.map((p) => {
         if (item.id === p.id) p.isAdded = true;
+        return 0;
       });
+      return 0;
     });
     return prod;
   };
   useEffect(() => {
     if (data) {
+      const { categories } = data;
       if (category === "All") {
-        const p = adding(0);
+        const p = adding(0, categories);
         setProducts([...p]);
       } else if (category === "Clothes") {
-        const p = adding(1);
+        const p = adding(1, categories);
         setProducts([...p]);
       } else if (category === "Tech") {
-        const p = adding(2);
+        const p = adding(2, categories);
         setProducts([...p]);
       }
     }
