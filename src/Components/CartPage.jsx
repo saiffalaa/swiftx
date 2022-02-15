@@ -66,14 +66,14 @@ function CartPage({
                   ))}
             </div>
             <div className="d-flex align-items-center">
-              <div className="d-flex flex-column align-items-center">
+              <div className="d-flex flex-column align-items-center  justify-content-between ">
                 <button
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
                     addCart(item);
                   }}
-                  className="qButton mb-1"
+                  className="qButton"
                 >
                   +
                 </button>
@@ -84,7 +84,7 @@ function CartPage({
                     e.stopPropagation();
                     subtCart(item);
                   }}
-                  className="qButton mt-1"
+                  className="qButton"
                 >
                   -
                 </button>

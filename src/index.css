@@ -112,3 +112,6 @@
   background-color: black;
   color: white;
 }
+.stretch {
+  align-items: stretch;
+}
