@@ -87,7 +87,9 @@ export default function Navbar({
           }}
           className="d-flex align-items-center pointer margin"
         >
-          <label className="icons_size">{currencyList[sym]?.symbol}</label>
+          <label className="pointer icons_size">
+            {currencyList[sym]?.symbol}
+          </label>
           <AiFillCaretDown className="down_size" />
         </div>
         {currOpen ? (

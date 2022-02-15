@@ -42,6 +42,12 @@ export default function CartMenu({
 
   return (
     <div className="position background mt-1">
+      <header className="ps-1">
+        <p className="cart-head">
+          <span className="cart-head-weight">My Bag</span>, {cartItems.length}{" "}
+          items
+        </p>
+      </header>
       {cartItems.length > 0 ? (
         <ul className="p-0 ps-1">
           {cartItems.map((item, index) => (
