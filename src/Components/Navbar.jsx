@@ -112,14 +112,17 @@ export default function Navbar({
         ) : (
           <></>
         )}
-        <AiOutlineShoppingCart
-          onClick={() => {
-            setBlur(!cartOpen);
-            setCartOpen(!cartOpen);
-            setCurrOpen(false);
-          }}
-          className="icons_size pointer"
-        />
+        <div>
+          <AiOutlineShoppingCart
+            onClick={() => {
+              setBlur(!cartOpen);
+              setCartOpen(!cartOpen);
+              setCurrOpen(false);
+            }}
+            className="icons_size pointer"
+          />
+          <label className="cart-label">{cartItems.length}</label>
+        </div>
         {cartOpen ? (
           <CartMenu
             sym={sym}

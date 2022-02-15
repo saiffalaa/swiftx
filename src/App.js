@@ -3,35 +3,15 @@ import "./index.css";
 import { gql, useQuery } from "@apollo/client";
 import Navbar from "./Components/Navbar";
 import CategoryPage from "./Components/CategoryPage";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CartPage from "./Components/CartPage";
 import ItemPage from "./Components/ItemPage";
 function App() {
   const [blur, setBlur] = useState(false);
-  // const query = gql`
-  //   query {
-  //     categories {
-  //       name
-  //     }
-  //   }
-  // `;
-  // const { error, loading, data } = useQuery(query);
-  // const [cate, setCate] = useState([]);
-  // useEffect(() => {
-  //   const { categories } = data;
-  //   // console.log(categories);
-  //   setCate(categories);
-  // }, [data]);
   const [category, setCategory] = useState("All");
   const [cartProducts, setCartProducts] = useState([]);
   const [currency, setCurrency] = useState(0);
   const handleCate = (cate) => {
-    console.log(cate);
     setCategory(cate);
   };
   const currencyState = (curr) => {
@@ -39,9 +19,9 @@ function App() {
   };
   const addCart = (product) => {
     const prod = JSON.parse(JSON.stringify(product));
+    prod.isAdded = true;
     if (prod.quantity) {
       let newCartProducts = cartProducts;
-      // console.log(newCartProducts);
       newCartProducts.map((item) => {
         if (item.id === prod.id) {
           item.quantity++;
@@ -53,12 +33,16 @@ function App() {
       setCartProducts([...cartProducts, prod]);
     }
   };
+  const removeCartItem = (item) => {
+    console.log(item);
+    const newList = cartProducts.filter((it) => {
+      return it.id !== item.id;
+    });
+    setCartProducts([...newList]);
+  };
   const subtCart = (item) => {
     if (item.quantity - 1 === 0) {
-      const newList = cartProducts.filter((it) => {
-        return it.id !== item.id;
-      });
-      setCartProducts([...newList]);
+      removeCartItem(item);
     } else {
       let newCartProducts = cartProducts;
       newCartProducts.map((it) => {
@@ -93,6 +77,7 @@ function App() {
               path="/"
               element={
                 <CategoryPage
+                  removeCartItem={removeCartItem}
                   sym={currency}
                   cartItems={cartProducts}
                   addCart={addCart}
@@ -104,6 +89,7 @@ function App() {
               path="/cart"
               element={
                 <CartPage
+                  removeCartItem={removeCartItem}
                   sym={currency}
                   subtCart={subtCart}
                   addCart={addCart}
@@ -115,13 +101,13 @@ function App() {
               path="/item/:id"
               element={
                 <ItemPage
+                  removeCartItem={removeCartItem}
                   sym={currency}
                   cartItems={cartProducts}
                   addCart={addCart}
                 />
               }
             />
-            {/* <CategoryPage category={category} /> */}
           </Routes>
         </div>
       </div>

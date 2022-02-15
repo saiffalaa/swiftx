@@ -3,8 +3,13 @@ import "../Styles/category.css";
 import { gql, useQuery } from "@apollo/client";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { Link } from "react-router-dom";
-export default function CategoryPage({ cartItems, addCart, category, sym }) {
-  // category = !category ? "All" : category;
+export default function CategoryPage({
+  cartItems,
+  addCart,
+  category,
+  sym,
+  removeCartItem,
+}) {
   const query = gql`
     query {
       categories {
@@ -31,22 +36,32 @@ export default function CategoryPage({ cartItems, addCart, category, sym }) {
     }
   `;
   const [products, setProducts] = useState([]);
-  const [currIndex, setCurrIndex] = useState(0);
   const { error, loading, data } = useQuery(query);
 
   useEffect(() => {
     if (data) {
       const { categories } = data;
       console.log(data, categories, category);
-      if (category === "All") setProducts(categories[0].products);
-      if (category === "Clothes") setProducts(categories[1].products);
-      if (category === "Tech") setProducts(categories[2].products);
+      if (category === "All") {
+        let prod = JSON.parse(JSON.stringify(categories[0].products));
+        prod.map((p) => (p.isAdded = false));
+        cartItems.map((item) => {
+          prod.map((p) => {
+            if (item.id === p.id) p.isAdded = true;
+          });
+        });
+        setProducts([...prod]);
+      } else if (category === "Clothes") setProducts(categories[1].products);
+      else if (category === "Tech") setProducts(categories[2].products);
     }
-  }, [data, category]);
+  }, [data, category, cartItems]);
   const handleCart = (e, prod) => {
     e.preventDefault();
-    console.log(prod);
     addCart(prod);
+  };
+  const handleRemove = (e, item) => {
+    e.preventDefault();
+    removeCartItem(item);
   };
   return (
     <div className="mt-3">
@@ -71,19 +86,21 @@ export default function CategoryPage({ cartItems, addCart, category, sym }) {
                 ) : (
                   <div id="text__overlay">OUT OF STOCK</div>
                 )}
-                <AiOutlineShoppingCart
-                  onClick={(e) => {
-                    let exist = false;
-                    cartItems.map((item) => {
-                      if (item.id === product.id) {
-                        exist = true;
-                        handleCart(e, item);
-                      }
-                    });
-                    !exist && handleCart(e, product);
-                  }}
-                  className="cart__overlay"
-                />
+                {!product.isAdded ? (
+                  <AiOutlineShoppingCart
+                    onClick={(e) => {
+                      handleCart(e, product);
+                    }}
+                    className="cart__overlay add"
+                  />
+                ) : (
+                  <AiOutlineShoppingCart
+                    onClick={(e) => {
+                      handleRemove(e, product);
+                    }}
+                    className="cart__overlay remove"
+                  />
+                )}
               </figure>
               <div className="mt-1">
                 <p className="m-0 name">{product.name}</p>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
 import "../Styles/itemPage.css";
-export default function ItemPage({ addCart, cartItems, sym }) {
+export default function ItemPage({ addCart, cartItems, sym, removeCartItem }) {
   const { id } = useParams();
   const query = gql`
     query {
@@ -31,21 +31,21 @@ export default function ItemPage({ addCart, cartItems, sym }) {
   const { error, loading, data } = useQuery(query);
   const [prod, setProd] = useState();
   const [isAdded, setIsAdded] = useState(false);
-  const [currIndex, setCurrIndex] = useState(0);
+
   useEffect(() => {
     if (data) {
       const { product } = data;
       setProd(product);
     }
-  }, [data]);
+  }, [data, cartItems]);
 
   useEffect(() => {
     let found = false;
     cartItems?.map((item) => {
-      if (item.id === prod.id) found = true;
+      if (item.id === prod?.id) found = true;
     });
     setIsAdded(found);
-  }, [cartItems]);
+  }, [cartItems, prod]);
   return (
     <div className="d-flex item_page">
       <div className="d-flex w-50">
@@ -80,9 +80,14 @@ export default function ItemPage({ addCart, cartItems, sym }) {
         </div>
         <div>
           {isAdded ? (
-            <button className="cart-btn">ADDED TO CART</button>
+            <button
+              onClick={() => removeCartItem(prod)}
+              className="cart-btn remove"
+            >
+              REMOVE FROM CART
+            </button>
           ) : (
-            <button onClick={() => addCart(prod)} className="cart-btn">
+            <button onClick={() => addCart(prod)} className="cart-btn add">
               ADD TO CART
             </button>
           )}

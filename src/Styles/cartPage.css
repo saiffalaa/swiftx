@@ -41,3 +41,11 @@
 .empty {
   font-size: 40px;
 }
+.remove-btn {
+  background-color: rgb(221, 50, 50);
+  border: none;
+  font-size: 16px;
+  height: 35px;
+  cursor: pointer;
+  color: white;
+}

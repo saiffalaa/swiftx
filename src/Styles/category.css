@@ -53,11 +53,17 @@
   opacity: 0;
   width: 10%;
   height: 10%;
-  background-color: #5ece7b;
+
   border-radius: 50%;
   color: white;
   bottom: -0.8rem;
   right: 1rem;
+}
+.add {
+  background-color: #5ece7b;
+}
+.remove {
+  background-color: red;
 }
 .item:hover .cart__overlay {
   opacity: 1;

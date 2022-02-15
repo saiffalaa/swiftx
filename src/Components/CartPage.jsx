@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../Styles/cartPage.css";
 import { gql, useQuery } from "@apollo/client";
 
-function CartPage({ cartItems, subtCart, addCart, sym }) {
+function CartPage({ cartItems, subtCart, addCart, sym, removeCartItem }) {
   const query = gql`
     query {
       categories {
@@ -66,6 +66,12 @@ function CartPage({ cartItems, subtCart, addCart, sym }) {
               <figure className="image_cart_size">
                 <img className="w-100" src={item.gallery[0]} />
               </figure>
+              <button
+                onClick={() => removeCartItem(item)}
+                className="remove-btn"
+              >
+                Remove
+              </button>
             </div>
           </div>
         ))

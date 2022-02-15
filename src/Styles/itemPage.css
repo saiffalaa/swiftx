@@ -40,9 +40,15 @@
   width: 290px;
   height: 50px;
   color: white;
-  background-color: #5ece7b;
+
   border: none;
   cursor: pointer;
   font-size: 16px;
   font-weight: 600;
+}
+.add {
+  background-color: #5ece7b;
+}
+.remove {
+  background-color: rgb(221, 50, 50);
 }

@@ -60,3 +60,15 @@ li {
   background-color: black;
   color: white;
 }
+.cart-label {
+  text-align: center;
+  right: 3.2rem;
+  top: 1.9rem;
+  position: absolute;
+  font-size: 14px;
+  width: 13px;
+  background-color: black;
+  border-radius: 50%;
+
+  color: white;
+}
