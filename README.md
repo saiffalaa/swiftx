@@ -33,6 +33,7 @@
 17. In Home page you can see mini-cart when hovered on an item
 18. If it's green the it's not added and by pressing it will be added to cart
 19. If it's red the it's added and by pressing it will be removed
+20. Global Styles in index.css and every Component has it's own css file
 
 ## Contact
 
