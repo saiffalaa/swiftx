@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./index.css";
-import { gql, isReference, useQuery } from "@apollo/client";
 import Navbar from "./Components/Navbar";
 import CategoryPage from "./Components/CategoryPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -35,7 +34,6 @@ function App() {
     }
   };
   const removeCartItem = (item) => {
-    console.log(item);
     const newList = cartProducts.filter((it) => {
       return it.id !== item.id;
     });
@@ -61,7 +59,6 @@ function App() {
     let prod = JSON.parse(JSON.stringify(selectedAttrs));
     prod.map((item) => {
       if (item.id === p.id) {
-        console.log(item.attr);
         const i = item.attr.indexOf(index);
         item.attr?.splice(i, 1);
       }
@@ -79,12 +76,9 @@ function App() {
       prod2.map((it) => {
         if (it?.id === prod.id) {
           exist = true;
-          // console.log(it.attr);
           it.attr.push(index);
-          // console.log(it.attr);
         }
       });
-      console.log(prod2);
       if (exist) {
         setSelectedAttr([...prod2]);
       } else {
@@ -92,12 +86,8 @@ function App() {
         setSelectedAttr([...selectedAttrs, prod]);
       }
     }
-    console.log(selectedAttrs);
   };
 
-  useEffect(() => {
-    console.log(cartProducts);
-  }, [cartProducts]);
   return (
     <Router>
       <div className={`ml-start ml-end `}>

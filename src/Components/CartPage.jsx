@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "../Styles/cartPage.css";
-import { gql, useQuery } from "@apollo/client";
+import { Link } from "react-router-dom";
 
 function CartPage({
   cartItems,
@@ -11,34 +11,6 @@ function CartPage({
   attrs,
   handleAttr,
 }) {
-  const query = gql`
-    query {
-      categories {
-        name
-        products {
-          name
-          gallery
-          inStock
-          prices {
-            currency {
-              label
-              symbol
-            }
-            amount
-          }
-        }
-      }
-    }
-  `;
-  const { error, loading, data } = useQuery(query);
-  const [cate, setCate] = useState("");
-  useEffect(() => {
-    if (data) {
-      const { categories } = data;
-      console.log(categories);
-      setCate(categories);
-    }
-  }, [data]);
   return (
     <div className="mt-3">
       <header className="w-100 ">
@@ -46,7 +18,10 @@ function CartPage({
       </header>
       {cartItems.length > 0 ? (
         cartItems.map((item) => (
-          <div className="d-flex justify-content-between align-items-center border-top">
+          <Link
+            to={`/item/${item.id}`}
+            className="d-flex justify-content-between align-items-center border-top"
+          >
             <div>
               <p className="cartPageText cartPageBrand">{item?.brand}</p>
               <p className="cartPageText cartPageName">{item.name}</p>
@@ -92,25 +67,43 @@ function CartPage({
             </div>
             <div className="d-flex align-items-center">
               <div className="d-flex flex-column align-items-center">
-                <button onClick={() => addCart(item)} className="qButton mb-1">
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    addCart(item);
+                  }}
+                  className="qButton mb-1"
+                >
                   +
                 </button>
                 <label>{item.quantity}</label>
-                <button onClick={() => subtCart(item)} className="qButton mt-1">
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    subtCart(item);
+                  }}
+                  className="qButton mt-1"
+                >
                   -
                 </button>
               </div>
               <figure className="image_cart_size">
-                <img className="w-100" src={item.gallery[0]} />
+                <img className="w-100" src={item.gallery[0]} alt="" />
               </figure>
               <button
-                onClick={() => removeCartItem(item)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  removeCartItem(item);
+                }}
                 className="remove-btn"
               >
                 Remove
               </button>
             </div>
-          </div>
+          </Link>
         ))
       ) : (
         <h2 className="center empty">No Items yet</h2>

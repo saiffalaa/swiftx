@@ -21,7 +21,7 @@ export default function CartMenu({
       }
     }
   `;
-  const { error, loading, data } = useQuery(query);
+  const { data } = useQuery(query);
   useEffect(() => {
     if (data) {
       const { currencies } = data;
@@ -30,7 +30,6 @@ export default function CartMenu({
   }, [data]);
   const calcTotal = () => {
     let sum = 0;
-
     cartItems.map((item) => {
       sum += item.prices[sym].amount * item.quantity;
     });
@@ -50,9 +49,11 @@ export default function CartMenu({
         </p>
       </header>
       {cartItems.length > 0 ? (
-        <ul className="p-0 ps-1">
+        <div className="p-0 ps-1">
           {cartItems.map((item, index) => (
-            <li
+            <Link
+              onClick={() => closeMenu()}
+              to={`/item/${item.id}`}
               className="d-flex mb-1 justify-content-between item-height pt-1"
               key={index}
             >
@@ -86,21 +87,35 @@ export default function CartMenu({
               </div>
               <div className="d-flex align-items-center">
                 <div className="d-flex flex-column align-items-center height justify-content-between">
-                  <button onClick={() => addCart(item)} className="cartbtn">
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      addCart(item);
+                    }}
+                    className="cartbtn"
+                  >
                     +
                   </button>
                   <label>{item.quantity}</label>
-                  <button onClick={() => subtCart(item)} className=" cartbtn">
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      subtCart(item);
+                    }}
+                    className=" cartbtn"
+                  >
                     -
                   </button>
                 </div>
                 <figure className="cart-image">
-                  <img className="w-100" src={item.gallery[0]} />
+                  <img className="w-100" src={item.gallery[0]} alt="" />
                 </figure>
               </div>
-            </li>
+            </Link>
           ))}
-        </ul>
+        </div>
       ) : (
         <p className="center">No Cart Items yet</p>
       )}

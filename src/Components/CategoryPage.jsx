@@ -36,23 +36,30 @@ export default function CategoryPage({
     }
   `;
   const [products, setProducts] = useState([]);
-  const { error, loading, data } = useQuery(query);
-
+  const { data } = useQuery(query);
+  const { categories } = data;
+  const adding = (i) => {
+    let prod = JSON.parse(JSON.stringify(categories[i].products));
+    prod.map((p) => (p.isAdded = false));
+    cartItems.map((item) => {
+      prod.map((p) => {
+        if (item.id === p.id) p.isAdded = true;
+      });
+    });
+    return prod;
+  };
   useEffect(() => {
     if (data) {
-      const { categories } = data;
-      console.log(data, categories, category);
       if (category === "All") {
-        let prod = JSON.parse(JSON.stringify(categories[0].products));
-        prod.map((p) => (p.isAdded = false));
-        cartItems.map((item) => {
-          prod.map((p) => {
-            if (item.id === p.id) p.isAdded = true;
-          });
-        });
-        setProducts([...prod]);
-      } else if (category === "Clothes") setProducts(categories[1].products);
-      else if (category === "Tech") setProducts(categories[2].products);
+        const p = adding(0);
+        setProducts([...p]);
+      } else if (category === "Clothes") {
+        const p = adding(1);
+        setProducts([...p]);
+      } else if (category === "Tech") {
+        const p = adding(2);
+        setProducts([...p]);
+      }
     }
   }, [data, category, cartItems]);
   const handleCart = (e, prod) => {
@@ -80,6 +87,7 @@ export default function CategoryPage({
                 <img
                   className="img1 background-image image__img"
                   src={product.gallery[0]}
+                  alt=""
                 />
                 {product.inStock ? (
                   ""

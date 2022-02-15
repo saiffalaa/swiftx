@@ -36,7 +36,7 @@ export default function ItemPage({
       }
     }
   `;
-  const { error, loading, data } = useQuery(query);
+  const { data } = useQuery(query);
   const [prod, setProd] = useState();
   const [isAdded, setIsAdded] = useState(false);
   const [currAttr, setCurrAttr] = useState([]);
@@ -66,13 +66,13 @@ export default function ItemPage({
       <div className="d-flex w-50">
         <div className="">
           {prod?.gallery.map((img, index) => (
-            <figure className=" m-0 mt-1 p-0">
-              <img key={index} className="side_image" src={img} />
+            <figure key={index} className=" m-0 mt-1 p-0">
+              <img className="side_image" src={img} alt="" />
             </figure>
           ))}
         </div>
         <figure className="main_img">
-          <img className="w-100" src={prod?.gallery[0]} />
+          <img className="w-100" src={prod?.gallery[0]} alt="" />
         </figure>
       </div>
       <div className="w-50 ps-4 item_page">

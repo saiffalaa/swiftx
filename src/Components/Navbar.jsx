@@ -29,7 +29,7 @@ export default function Navbar({
       }
     }
   `;
-  const { error, loading, data } = useQuery(query);
+  const { data } = useQuery(query);
   useEffect(() => {
     if (data) {
       const { currencies } = data;
@@ -38,7 +38,6 @@ export default function Navbar({
   }, [data]);
 
   const handleFocus = (e) => {
-    console.log(e.target.textContent);
     setHighlight(e.target.textContent);
     handleCate(e.target.textContent);
   };
@@ -77,7 +76,7 @@ export default function Navbar({
         </li>
       </ul>
       <figure className="p-0 m-0 logo_dim">
-        <img className="w-100" src={LOGO} />
+        <img className="w-100" src={LOGO} alt="" />
       </figure>
       <div className="d-flex">
         <div
@@ -108,7 +107,6 @@ export default function Navbar({
                     setCartOpen(false);
                     setCurrOpen(false);
                   }}
-                  key={index}
                   className="curr-item mt-1"
                 >
                   {curr.symbol} {curr.label}
