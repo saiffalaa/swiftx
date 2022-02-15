@@ -2,7 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
 import "../Styles/itemPage.css";
-export default function ItemPage({ addCart, cartItems, sym, removeCartItem }) {
+export default function ItemPage({
+  addCart,
+  cartItems,
+  sym,
+  removeCartItem,
+  attrs,
+  addAttrs,
+  unSelect,
+}) {
   const { id } = useParams();
   const query = gql`
     query {
@@ -31,7 +39,7 @@ export default function ItemPage({ addCart, cartItems, sym, removeCartItem }) {
   const { error, loading, data } = useQuery(query);
   const [prod, setProd] = useState();
   const [isAdded, setIsAdded] = useState(false);
-
+  const [currAttr, setCurrAttr] = useState([]);
   useEffect(() => {
     if (data) {
       const { product } = data;
@@ -46,6 +54,13 @@ export default function ItemPage({ addCart, cartItems, sym, removeCartItem }) {
     });
     setIsAdded(found);
   }, [cartItems, prod]);
+  useEffect(() => {
+    attrs.map((attr) => {
+      if (attr?.id === prod?.id) {
+        setCurrAttr(attr);
+      }
+    });
+  }, [attrs, prod]);
   return (
     <div className="d-flex item_page">
       <div className="d-flex w-50">
@@ -68,7 +83,18 @@ export default function ItemPage({ addCart, cartItems, sym, removeCartItem }) {
         {prod?.attributes?.map((attr, index) => (
           <div key={index}>
             <h4>{attr?.name.toUpperCase()}:</h4>
-            <p className="attr">{attr?.type.toUpperCase()}</p>
+            <p
+              onClick={() => {
+                currAttr.attr
+                  ? addAttrs(currAttr, index)
+                  : addAttrs(prod, index);
+              }}
+              className={`attr ${
+                currAttr.attr?.includes(index) ? "selected" : ""
+              }`}
+            >
+              {attr?.type.toUpperCase()}
+            </p>
           </div>
         ))}
         <div>

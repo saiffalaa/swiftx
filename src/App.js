@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
-import { gql, useQuery } from "@apollo/client";
+import { gql, isReference, useQuery } from "@apollo/client";
 import Navbar from "./Components/Navbar";
 import CategoryPage from "./Components/CategoryPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -11,6 +11,7 @@ function App() {
   const [category, setCategory] = useState("All");
   const [cartProducts, setCartProducts] = useState([]);
   const [currency, setCurrency] = useState(0);
+  const [selectedAttrs, setSelectedAttr] = useState([]);
   const handleCate = (cate) => {
     setCategory(cate);
   };
@@ -56,6 +57,44 @@ function App() {
   const handleBlur = (state) => {
     setBlur(state);
   };
+  const unSelect = (p, index) => {
+    let prod = JSON.parse(JSON.stringify(selectedAttrs));
+    prod.map((item) => {
+      if (item.id === p.id) {
+        console.log(item.attr);
+        const i = item.attr.indexOf(index);
+        item.attr?.splice(i, 1);
+      }
+    });
+    setSelectedAttr([...prod]);
+  };
+  const handleAttr = (p, index) => {
+    const prod = JSON.parse(JSON.stringify(p));
+    let prod2 = JSON.parse(JSON.stringify(selectedAttrs));
+
+    if (!prod.attr) prod.attr = [];
+    if (prod.attr.includes(index)) unSelect(p, index);
+    else {
+      let exist = false;
+      prod2.map((it) => {
+        if (it?.id === prod.id) {
+          exist = true;
+          // console.log(it.attr);
+          it.attr.push(index);
+          // console.log(it.attr);
+        }
+      });
+      console.log(prod2);
+      if (exist) {
+        setSelectedAttr([...prod2]);
+      } else {
+        prod.attr.push(index);
+        setSelectedAttr([...selectedAttrs, prod]);
+      }
+    }
+    console.log(selectedAttrs);
+  };
+
   useEffect(() => {
     console.log(cartProducts);
   }, [cartProducts]);
@@ -63,6 +102,7 @@ function App() {
     <Router>
       <div className={`ml-start ml-end `}>
         <Navbar
+          attrs={selectedAttrs}
           sym={currency}
           handleCurr={(current) => currencyState(current)}
           handleCate={(str) => handleCate(str)}
@@ -89,6 +129,8 @@ function App() {
               path="/cart"
               element={
                 <CartPage
+                  handleAttr={handleAttr}
+                  attrs={selectedAttrs}
                   removeCartItem={removeCartItem}
                   sym={currency}
                   subtCart={subtCart}
@@ -101,6 +143,9 @@ function App() {
               path="/item/:id"
               element={
                 <ItemPage
+                  unSelect={unSelect}
+                  attrs={selectedAttrs}
+                  addAttrs={handleAttr}
                   removeCartItem={removeCartItem}
                   sym={currency}
                   cartItems={cartProducts}

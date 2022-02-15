@@ -14,6 +14,7 @@ export default function Navbar({
   handleCate,
   sym,
   handleCurr,
+  attrs,
 }) {
   const [hightlight, setHighlight] = useState("All");
   const [cartOpen, setCartOpen] = useState(false);
@@ -130,6 +131,7 @@ export default function Navbar({
         </div>
         {cartOpen ? (
           <CartMenu
+            attrs={attrs}
             sym={sym}
             subtCart={subtCart}
             addCart={addCart}

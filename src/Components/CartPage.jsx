@@ -2,7 +2,15 @@ import React, { useEffect, useState } from "react";
 import "../Styles/cartPage.css";
 import { gql, useQuery } from "@apollo/client";
 
-function CartPage({ cartItems, subtCart, addCart, sym, removeCartItem }) {
+function CartPage({
+  cartItems,
+  subtCart,
+  addCart,
+  sym,
+  removeCartItem,
+  attrs,
+  handleAttr,
+}) {
   const query = gql`
     query {
       categories {
@@ -47,11 +55,40 @@ function CartPage({ cartItems, subtCart, addCart, sym, removeCartItem }) {
                 {item.prices[sym].amount}
               </p>
 
-              {item.attributes?.map((attr) => (
-                <div>
-                  <p className="cart-type">{attr.type.toUpperCase()}</p>
-                </div>
-              ))}
+              {attrs.find((opt) => opt.id === item.id)
+                ? attrs.map((opt) => {
+                    if (opt.id === item.id) {
+                      return item.attributes?.map((attr, index) => (
+                        <div key={index}>
+                          {opt?.attr.includes(index) ? (
+                            <p
+                              onClick={() => handleAttr(opt, index)}
+                              className="cart-type selected pointer"
+                            >
+                              {attr.type}
+                            </p>
+                          ) : (
+                            <p
+                              onClick={() => handleAttr(opt, index)}
+                              className="cart-type pointer"
+                            >
+                              {attr.type}
+                            </p>
+                          )}
+                        </div>
+                      ));
+                    }
+                  })
+                : item.attributes?.map((attr, index) => (
+                    <div key={index}>
+                      <p
+                        onClick={() => handleAttr(attr, index)}
+                        className="cart-type pointer"
+                      >
+                        {attr.type}
+                      </p>
+                    </div>
+                  ))}
             </div>
             <div className="d-flex align-items-center">
               <div className="d-flex flex-column align-items-center">

@@ -8,6 +8,7 @@ export default function CartMenu({
   addCart,
   subtCart,
   sym,
+  attrs,
 }) {
   // const [currIndex, setCurrIndex] = useState(sym);
   const [total, setTotal] = useState(0);
@@ -61,11 +62,27 @@ export default function CartMenu({
                 <p className="m-0 font-menu menu-price">
                   {item.prices[sym].currency.symbol} {item.prices[sym].amount}
                 </p>
-                {item.attributes?.map((attr, index) => (
-                  <div key={index}>
-                    <p className="m-0 attr-menu">{attr.type}</p>
-                  </div>
-                ))}
+                {attrs.find((opt) => opt.id === item.id)
+                  ? attrs.map((opt) => {
+                      if (opt.id === item.id) {
+                        return item.attributes?.map((attr, index) => (
+                          <div key={index}>
+                            {opt?.attr.includes(index) ? (
+                              <p className="m-0 attr-menu selected">
+                                {attr.type}
+                              </p>
+                            ) : (
+                              <p className="m-0 attr-menu">{attr.type}</p>
+                            )}
+                          </div>
+                        ));
+                      }
+                    })
+                  : item.attributes?.map((attr, index) => (
+                      <div key={index}>
+                        <p className="m-0 attr-menu">{attr.type}</p>
+                      </div>
+                    ))}
               </div>
               <div className="d-flex align-items-center">
                 <div className="d-flex flex-column align-items-center height justify-content-between">
